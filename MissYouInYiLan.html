@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f1e8">
+  <title>給姊姊的一個小小角落</title>
+  <style>
+    :root {
+      --paper: #fbf8f1;
+      --cream: #f2eadf;
+      --ink: #66594d;
+      --muted: #9a8877;
+      --rose: #c58f83;
+      --sage: #9eaa91;
+      --line: #e5d9ca
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Serif TC", "Songti TC", serif;
+      letter-spacing: .06em;
+      overflow-x: hidden
+    }
+
+    body:before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
+      background-image: radial-gradient(#b9a58d .55px, transparent .55px);
+      background-size: 8px 8px;
+      z-index: -1
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer
+    }
+
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 34px 20px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, #faf6ee, #f1e8dc)
+    }
+
+    .hero:after {
+      content: "";
+      position: absolute;
+      width: 330px;
+      height: 330px;
+      border: 1px solid #d9c9b7;
+      border-radius: 50%;
+      right: -170px;
+      top: 8%;
+      opacity: .55
+    }
+
+    .hero-inner {
+      width: min(680px, 100%);
+      text-align: center;
+      position: relative;
+      z-index: 1
+    }
+
+    .eyebrow {
+      font: 11px Arial, sans-serif;
+      letter-spacing: .28em;
+      color: var(--muted)
+    }
+
+    h1 {
+      font-size: clamp(29px, 6vw, 48px);
+      font-weight: 500;
+      line-height: 1.45;
+      margin: 18px 0 8px
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 2
+    }
+
+    .envelope-wrap {
+      height: 250px;
+      display: grid;
+      place-items: center;
+      margin: 24px auto 18px;
+      perspective: 900px
+    }
+
+    .envelope {
+      width: min(330px, 82vw);
+      height: 205px;
+      position: relative;
+      cursor: pointer;
+      filter: drop-shadow(0 15px 18px #76614b22);
+      transition: transform .4s
+    }
+
+    .envelope:hover {
+      transform: translateY(-5px)
+    }
+
+    .env-back {
+      position: absolute;
+      inset: 0;
+      background: #dfcdb8;
+      border-radius: 5px
+    }
+
+    .env-front {
+      position: absolute;
+      inset: 0;
+      background: #eadbca;
+      clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+      z-index: 3;
+      border-radius: 5px
+    }
+
+    .env-flap {
+      position: absolute;
+      inset: 0;
+      background: #d6c0a8;
+      clip-path: polygon(0 0, 100% 0, 50% 61%);
+      transform-origin: top;
+      transition: transform 1s cubic-bezier(.2, .7, .2, 1);
+      z-index: 4
+    }
+
+    .letter {
+      position: absolute;
+      left: 8%;
+      width: 84%;
+      height: 83%;
+      top: 8%;
+      background: #fffdf8;
+      border: 1px solid #e7dccc;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      transition: transform 1s .2s;
+      z-index: 2;
+      color: #8a7561
+    }
+
+    .letter span {
+      font-size: 22px
+    }
+
+    .seal {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      top: 56%;
+      transform: translate(-50%, -50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #b98178;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      box-shadow: 0 2px 7px #76594b33;
+      transition: opacity .4s
+    }
+
+    .envelope.open .env-flap {
+      transform: rotateX(180deg);
+      z-index: 1
+    }
+
+    .envelope.open .letter {
+      transform: translateY(-95px);
+      z-index: 5
+    }
+
+    .envelope.open .seal {
+      opacity: 0
+    }
+
+    .open-hint {
+      font-size: 12px;
+      color: var(--muted);
+      animation: pulse 2s infinite
+    }
+
+    @keyframes pulse {
+      50% {
+        opacity: .45
+      }
+    }
+
+    @keyframes sectionIn {
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .next-step {
+      margin-top: 28px;
+      text-align: center
+    }
+
+    .next-step .btn {
+      min-width: 190px
+    }
+
+    main {
+      max-width: 850px;
+      margin: auto;
+      padding: 0 22px 70px
+    }
+
+    section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--line);
+      display: none;
+      opacity: 0;
+      transform: translateY(18px)
+    }
+
+    section.unlocked {
+      display: block;
+      animation: sectionIn .75s ease forwards
+    }
+
+    .section-tag {
+      font: 10px Arial, sans-serif;
+      letter-spacing: .25em;
+      color: var(--rose);
+      text-align: center
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 25px;
+      font-weight: 500;
+      margin: 12px 0 8px
+    }
+
+    .intro {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 2;
+      margin: 0 auto 28px;
+      max-width: 520px
+    }
+
+    .paper-card {
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 24px #7c68500d;
+      padding: 26px 24px;
+      position: relative
+    }
+
+    .paper-card:before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border: 1px dashed #e8ded1;
+      pointer-events: none
+    }
+
+    .marquee-shell {
+      overflow: hidden;
+      background: #f1e7dc;
+      border: 1px solid #e6d7c8;
+      padding: 14px 0;
+      margin: 22px 0
+    }
+
+    .marquee {
+      display: flex;
+      width: max-content;
+      animation: marquee 24s linear infinite;
+      color: #8c7461;
+      font-size: 14px
+    }
+
+    .marquee span {
+      padding-right: 55px;
+      white-space: nowrap
+    }
+
+    @keyframes marquee {
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    .message {
+      text-align: center;
+      font-size: 17px;
+      line-height: 2.15;
+      white-space: pre-line;
+      position: relative;
+      z-index: 1
+    }
+
+    .message-window {
+      height: 245px;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%)
+    }
+
+    .message-track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      animation: letterScroll 70s linear infinite
+    }
+
+    .message-track .message {
+      width: 100%;
+      flex: none
+    }
+
+    .message-track:hover {
+      animation-play-state: paused
+    }
+
+    @keyframes letterScroll {
+      from {
+        transform: translateY(0)
+      }
+
+      to {
+        transform: translateY(-100%)
+      }
+    }
+
+    .note {
+      display: block;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+      position: relative;
+      z-index: 1
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px
+    }
+
+    .memory {
+      background: #fffdf8;
+      border: 1px solid var(--line);
+      padding: 12px;
+      transform: rotate(-1deg);
+      box-shadow: 0 8px 18px #78634b10
+    }
+
+    .memory:nth-child(2n) {
+      transform: rotate(1.2deg)
+    }
+
+    .photo {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #e8ded0, #f4eee5);
+      display: grid;
+      place-items: center;
+      color: #9b8875;
+      font-size: 12px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .photo:before,
+    .photo:after {
+      content: "";
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border: 1px solid #c9b8a4;
+      border-radius: 50%;
+      opacity: .5
+    }
+
+    .photo:after {
+      width: 120px;
+      height: 120px
+    }
+
+    .memory p {
+      font-size: 13px;
+      line-height: 1.8;
+      margin: 12px 4px 4px
+    }
+
+    .memory small {
+      color: var(--muted)
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 24px
+    }
+
+    .btn {
+      border: 1px solid #cdb9a5;
+      background: #fffaf3;
+      color: #786655;
+      border-radius: 30px;
+      padding: 11px 20px;
+      font-size: 13px;
+      transition: .2s
+    }
+
+    .btn:hover {
+      background: #eadbca;
+      transform: translateY(-2px)
+    }
+
+    .btn.primary {
+      background: #b9877e;
+      color: white;
+      border-color: #b9877e
+    }
+
+    .reveal {
+      min-height: 78px;
+      text-align: center;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      line-height: 2;
+      padding: 10px;
+      color: #806d5a
+    }
+
+    .flower {
+      position: absolute;
+      color: #a5ad96;
+      opacity: .65;
+      font-size: 28px
+    }
+
+    .flower.a {
+      left: 8%;
+      top: 17%;
+      transform: rotate(-20deg)
+    }
+
+    .flower.b {
+      right: 9%;
+      bottom: 15%;
+      font-size: 36px;
+      transform: rotate(18deg)
+    }
+
+    footer {
+      text-align: center;
+      padding: 42px 20px 55px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 2
+    }
+
+    footer strong {
+      display: block;
+      color: #8c7562;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 7px
+    }
+
+    @media(max-width:560px) {
+      section {
+        padding: 48px 0
+      }
+
+      .grid {
+        gap: 10px
+      }
+
+      .memory {
+        padding: 8px
+      }
+
+      .memory p {
+        font-size: 12px
+      }
+
+      .paper-card {
+        padding: 23px 18px
+      }
+
+      .message {
+        font-size: 15px
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .message-track {
+        animation: none
+      }
+
+      .envelope,
+      .env-flap,
+      .letter,
+      .seal {
+        transition: none
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <header class="hero" id="top">
+    <span class="flower a">✿</span><span class="flower b">❀</span>
+    <div class="hero-inner">
+      <div class="eyebrow">A LITTLE PLACE FOR YOU</div>
+      <h1>給我姊的<br>一封信</h1>
+      <p class="subtitle">2026/11/19，星期四，<br>這週我不在的第三天，<br>也是你出國的前一天。</p>
+      <div class="envelope-wrap">
+        <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="打開信封">
+          <div class="env-back"></div>
+          <div class="letter"><span>給最愛宣的妳 ♡</span></div>
+          <div class="env-front"></div>
+          <div class="env-flap"></div>
+          <div class="seal">♡</div>
+        </div>
+      </div>
+      <div class="open-hint" id="hint">點一下信封，打開我留給妳的話</div>
+      <div class="actions"><button class="btn primary" id="enter">打開這份心意　♡</button></div>
+    </div>
+  </header>
+  <main id="content">
+    <section>
+      <div class="section-tag">A NOTE FOR YOU</div>
+      <h2>今天想跟妳說</h2>
+      <p class="intro">有些話想慢慢說給妳聽，不用急著看完。</p>
+      <div class="marquee-shell">
+        <div class="marquee">
+          <span>想我的時候，就來這裡坐坐。　♡　不管距離多遠，我們都還是我們。　♡　今天也要繼續想我。　♡　</span><span>想我的時候，就來這裡坐坐。　♡　不管距離多遠，我們都還是我們。　♡　今天也要繼續想我。　♡　</span>
+        </div>
+      </div>
+      <div class="paper-card">
+        <div class="message-window" aria-label="自動向上播放的信件內容">
+          <div class="message-track">
+            <div class="message">
+              姊，想先跟妳說：
+              抱歉，請原諒幼稚的我。
+
+              妳大概有猜到
+              為什麼我會選在前兩天出國，
+              一方面是我們當中只剩我沒出國，
+              另一方面是
+              在前半年其實我一直問妳：
+              我可不可以在平日出國，
+              但妳始終都沒有正面回答我這個問題，
+              然後又因為我們再次鬧得很不愉快，
+              所以我想知道
+              我在妳心中到底是什麼樣的定位，
+              所以直接讓妳直面這件事情的發生。
+              我說過：
+              如果我在一個人的心中微不足道，
+              那我就不會再真心相待。
+
+              但其實我也要感謝妳，
+              讓我終於敢嘗試獨旅，
+              雖然其實有一半的行程是蹭姐姐家的規劃～
+              當然還有一部分是為了可以在異國跟姐姐巧遇！
+
+              很遺憾沒辦法在妳出國前一天跟妳說再見，
+              其實心中曾經期待
+              妳會不會問我要不要去跟妳巧遇，
+              我本來就沒打算要
+              全程打擾妳們的家庭旅行，
+              但只是可惜連巧遇的機會都沒有，
+              老實說心裡是有點小失落，
+              但我也清楚知道，我們終究不會是家人。
+
+              但我是真的很想知道，
+              要是我這次真的決定要出國三天，
+              會發生什麼樣的事情😂
+
+              好啦～老話一句，
+              見字如晤，
+              希望我留下的這封信，
+              能讓你感覺到
+              我還是陪在妳身邊❤️
+              這個網頁在我們分手之前不會下架，
+              想我的時候，就來這裡看看。
+
+              項鍊我從來沒拿下來過，
+              我想一直都把妳放在心上。❤️</div>
+            <div class="message" aria-hidden="true">姊，想先跟妳說：
+              抱歉，請原諒幼稚的我。
+
+              妳大概有猜到
+              為什麼我會選在前兩天出國，
+              一方面是我們當中只剩我沒出國，
+              另一方面是
+              在前半年其實我一直問妳：
+              我可不可以在平日出國，
+              但妳始終都沒有正面回答我這個問題，
+              然後又因為我們再次鬧得很不愉快，
+              所以我想知道
+              我在妳心中到底是什麼樣的定位，
+              所以直接讓妳直面這件事情的發生。
+              我說過：
+              如果我在一個人的心中微不足道，
+              那我就不會再真心相待。
+
+              但其實我也要感謝妳，
+              讓我終於敢嘗試獨旅，
+              雖然其實有一半的行程是蹭姐姐家的規劃～
+              當然還有一部分是為了可以在異國跟姐姐巧遇！
+
+              很遺憾沒辦法在妳出國前一天跟妳說再見，
+              其實心中曾經期待
+              妳會不會問我要不要去跟妳巧遇，
+              我本來就沒打算要
+              全程打擾妳們的家庭旅行，
+              但只是可惜連巧遇的機會都沒有，
+              老實說心裡是有點小失落，
+              但我也清楚知道，我們終究不會是家人。
+
+              但我是真的很想知道，
+              要是我這次真的決定要出國三天，
+              會發生什麼樣的事情😂
+
+              好啦～老話一句，
+              見字如晤，
+              希望我留下的這封信，
+              能讓你感覺到
+              我還是陪在妳身邊❤️
+              這個網頁在我們分手之前不會下架，
+              想我的時候，就來這裡看看。
+
+              項鍊我從來沒拿下來過，
+              我想一直都把妳放在心上。❤️</div>
+          </div>
+        </div><span class="note">— 想念妳的我</span>
+      </div>
+      <div class="next-step"><button class="btn primary next-btn">讀完了，下一個小驚喜 →</button></div>
+    </section>
+    <section>
+      <div class="section-tag">A LITTLE REMINDER</div>
+      <h2>給妳的小小鼓勵</h2>
+      <p class="intro">當今天不太順利，抽一張小紙條吧。</p>
+      <div class="paper-card">
+        <div class="reveal" id="quote">「妳已經很努力了，今天也值得被好好疼愛。」</div>
+      </div>
+      <div class="actions"><button class="btn" id="newQuote">再抽一張小紙條 ✿</button></div>
+      <div class="next-step"><button class="btn primary next-btn">繼續往下看看 →</button></div>
+    </section>
+    <section>
+      <div class="section-tag">WHEN YOU MISS ME</div>
+      <h2>想我的時候，點一下</h2>
+      <p class="intro">這裡有一句我想親口對妳說的話。</p>
+      <div class="paper-card">
+        <div class="reveal" id="secret">有些人不需要天天見面，也一直在彼此心裡。♡</div>
+      </div>
+      <div class="actions"><button class="btn primary" id="secretBtn">送我一句悄悄話</button><button class="btn"
+          onclick="window.scrollTo({top:0,behavior:'smooth'})">回到最上面 ↑</button></div>
+      <div class="next-step"><button class="btn primary" id="finishBtn">完成這趟小小旅程 ♡</button></div>
+    </section>
+  </main>
+  <footer><strong>不管我在哪裡，妳都可以來這裡找我。♡</strong>這個小角落，永遠留一個位置給妳。<br><br>Made with love, just for you.</footer>
+  <script>
+    const envelope = document.getElementById('envelope');
+
+    function openLetter() {
+      envelope.classList.add('open');
+      document.getElementById('hint').textContent = '信已經為妳打開了 ♡';
+    }
+    envelope.addEventListener('click', openLetter);
+    envelope.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLetter();
+      }
+    });
+    const sections = [...document.querySelectorAll('main section')];
+
+    function revealSection(index) {
+      if (index < sections.length) {
+        sections[index].classList.add('unlocked');
+        setTimeout(() => sections[index].scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        }), 120);
+      }
+    }
+    document.getElementById('enter').addEventListener('click', () => {
+      openLetter();
+      setTimeout(() => revealSection(0), 650);
+    });
+    document.querySelectorAll('.next-btn').forEach((button, index) => {
+      button.addEventListener('click', () => revealSection(index + 1));
+    });
+    document.getElementById('finishBtn').addEventListener('click', () => {
+      document.getElementById('finishBtn').textContent = '這份心意會一直為妳留著 ♡';
+      document.getElementById('finishBtn').disabled = true;
+    });
+    const quotes = ['「妳已經很努力了，今天也值得被好好疼愛。」', '「不用每一天都很勇敢，偶爾休息也沒關係。」', '「希望妳記得，妳一直都是很棒、很值得被愛的人。」',
+      '「先照顧好自己的心情，其他事情我們慢慢來。」', '「不管今天發生什麼，明天都還有新的可能。」', '「如果累了，就停下來喝口水，給自己一個抱抱。」'
+    ];
+    document.getElementById('newQuote').addEventListener('click', () => {
+      const el = document.getElementById('quote');
+      el.style.opacity = 0;
+      setTimeout(() => {
+        el.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+        el.style.opacity = 1;
+      }, 220);
+    });
+    const secrets = ['想我的時候，傳訊息給我唄♡', '謝謝妳出現在我的生命裡❤️', '我們還有好多地方要一起去、好多餐廳要一起吃～',
+      '距離只是地圖上的一段路，不是我們的距離。', '今天也要記得吃飯、喝水、好好睡覺。', '乖乖等我回來哦！'
+    ];
+    document.getElementById('secretBtn').addEventListener('click', () => {
+      document.getElementById('secret').textContent = secrets[Math.floor(Math.random() * secrets.length)];
+    });
+
+  </script>
+</body>
+
+</html>

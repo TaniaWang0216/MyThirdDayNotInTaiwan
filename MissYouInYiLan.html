@@ -360,7 +360,7 @@
       display: block;
       margin-top: 18px;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 14px;
       text-align: right;
       position: relative;
       z-index: 1
@@ -543,9 +543,9 @@
   <header class="hero" id="top">
     <span class="flower a">✿</span><span class="flower b">❀</span>
     <div class="hero-inner">
-      <div class="eyebrow">A LITTLE PLACE FOR YOU</div>
+      <div class="eyebrow">A LETTER JUST FOR RURU</div>
       <h1>給我姊的<br>一封信</h1>
-      <p class="subtitle">2026/11/19，星期四，<br>這週我不在的第三天，<br>也是你出國的前一天。</p>
+      <p class="subtitle">2026/11/19，星期四，<br>這週我沒有陪妳的第三天，<br>也是妳出國的前一天。</p>
       <div class="envelope-wrap">
         <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="打開信封">
           <div class="env-back"></div>
@@ -590,20 +590,17 @@
               很遺憾沒辦法在妳出國前一天送妳，
               其實心中曾經期待
               妳會不會問我要不要去跟妳巧遇，
-              我本來就沒打算要
-              全程打擾妳們的家庭旅行，
-              但只是可惜連巧遇的機會都沒有，
+			  可惜沒有，
               老實說心裡是有點小失落
 
               但我也要感謝妳，
-              讓我終於敢嘗試獨旅，
-              雖然其實有一半的行程是蹭姐姐家的規劃～
+              讓我終於去嘗試獨旅，
+              雖然其實有一半是蹭姐姐家的行程～
 
-              不過我也是真的很想知道，
-              要是我這次真的決定要出國三天
+              不過要是我這次真的決定要出國三天
               再加上後面兩天八九連動，
               我們10天沒見面的話，
-              會發生什麼樣的事情😂
+              會發生什麼事😂
 
               好啦～老樣子的感性時間，
               見字如晤，
@@ -614,7 +611,7 @@
               想我的時候，就來這裡看看。
 
               項鍊我從來沒拿下來過，
-              我想一直都把妳放在心上。❤️</div>
+              因為我一直都把妳放在心上。❤️</div>
             <div class="message" aria-hidden="true">
               姊，想先跟妳說：
               抱歉，請原諒幼稚的我。
@@ -633,20 +630,17 @@
               很遺憾沒辦法在妳出國前一天送妳，
               其實心中曾經期待
               妳會不會問我要不要去跟妳巧遇，
-              我本來就沒打算要
-              全程打擾妳們的家庭旅行，
-              但只是可惜連巧遇的機會都沒有，
+			  可惜沒有，
               老實說心裡是有點小失落
 
               但我也要感謝妳，
-              讓我終於敢嘗試獨旅，
-              雖然其實有一半的行程是蹭姐姐家的規劃～
+              讓我終於去嘗試獨旅，
+              雖然其實有一半是蹭姐姐家的行程～
 
-              不過我也是真的很想知道，
-              要是我這次真的決定要出國三天
+              不過要是我這次真的決定要出國三天
               再加上後面兩天八九連動，
               我們10天沒見面的話，
-              會發生什麼樣的事情😂
+              會發生什麼事😂
 
               好啦～老樣子的感性時間，
               見字如晤，
@@ -657,13 +651,13 @@
               想我的時候，就來這裡看看。
 
               項鍊我從來沒拿下來過，
-              我想一直都把妳放在心上。❤️</div>
+              因為我一直都把妳放在心上。❤️</div>
           </div>
         </div><span class="note">—妹 宣</span>
       </div>
       <div class="next-step"><button class="btn primary next-btn">讀完了，下一個小驚喜 →</button></div>
     </section>
-    <section>
+    <!-- <section>
       <div class="section-tag">A LITTLE REMINDER</div>
       <h2>給妳的小小鼓勵</h2>
       <p class="intro">當今天不太順利，抽一張小紙條吧。</p>
@@ -672,7 +666,7 @@
       </div>
       <div class="actions"><button class="btn" id="newQuote">再抽一張小紙條 ✿</button></div>
       <div class="next-step"><button class="btn primary next-btn">繼續往下看看 →</button></div>
-    </section>
+    </section> -->
     <section>
       <div class="section-tag">WHEN YOU MISS ME</div>
       <h2>想我的時候，點一下</h2>
@@ -722,19 +716,19 @@
       document.getElementById('finishBtn').textContent = '這份心意會一直為妳留著 ♡';
       document.getElementById('finishBtn').disabled = true;
     });
-    const quotes = ['「妳已經很努力了，今天也值得被好好疼愛。」', '「不用每一天都很勇敢，偶爾休息也沒關係。」', '「希望妳記得，妳一直都是很棒、很值得被愛的人。」',
-      '「先照顧好自己的心情，其他事情我們慢慢來。」', '「不管今天發生什麼，明天都還有新的可能。」', '「如果累了，就停下來喝口水，給自己一個抱抱。」'
-    ];
-    document.getElementById('newQuote').addEventListener('click', () => {
-      const el = document.getElementById('quote');
-      el.style.opacity = 0;
-      setTimeout(() => {
-        el.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-        el.style.opacity = 1;
-      }, 220);
-    });
+    //const quotes = ['「妳已經很努力了，今天也值得被好好疼愛。」', '「不用每一天都很勇敢，偶爾休息也沒關係。」', '「希望妳記得，妳一直都是很棒、很值得被愛的人。」',
+    //  '「先照顧好自己的心情，其他事情我們慢慢來。」', '「不管今天發生什麼，明天都還有新的可能。」', '「如果累了，就停下來喝口水，給自己一個抱抱。」'
+    //];
+    //document.getElementById('newQuote').addEventListener('click', () => {
+    //  const el = document.getElementById('quote');
+    //  el.style.opacity = 0;
+    //  setTimeout(() => {
+    //    el.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+    //    el.style.opacity = 1;
+    //  }, 220);
+    //});
     const secrets = ['想我的時候，傳訊息給我唄♡', '謝謝妳出現在我的生命裡❤️', '我們還有好多地方要一起去、好多餐廳要一起吃～',
-      '距離只是地圖上的一段路，不是我們的距離。', '今天也要記得吃飯、喝水、好好睡覺。', '乖乖等我回來哦！'
+      '距離只是地圖上的一段路，不是我們的距離。', '今天也要記得吃飯、想我、好好睡覺。', '乖乖等我回來哦！'
     ];
     document.getElementById('secretBtn').addEventListener('click', () => {
       document.getElementById('secret').textContent = secrets[Math.floor(Math.random() * secrets.length)];

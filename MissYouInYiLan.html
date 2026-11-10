@@ -549,14 +549,14 @@
       <div class="envelope-wrap">
         <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="打開信封">
           <div class="env-back"></div>
-          <div class="letter"><span>給最愛宣的妳 ♡</span></div>
+          <div class="letter"><span>給最愛宣的妳 💜</span></div>
           <div class="env-front"></div>
           <div class="env-flap"></div>
-          <div class="seal">♡</div>
+          <div class="seal">💜</div>
         </div>
       </div>
       <div class="open-hint" id="hint">點一下信封，打開我留給妳的話</div>
-      <div class="actions"><button class="btn primary" id="enter">打開這份心意　♡</button></div>
+      <div class="actions"><button class="btn primary" id="enter">打開這份心意　💜</button></div>
     </div>
   </header>
   <main id="content">
@@ -566,7 +566,7 @@
       <p class="intro">有些話想慢慢說給妳聽，不用急著看完。</p>
       <div class="marquee-shell">
         <div class="marquee">
-          <span>想我的時候，就來這裡坐坐。　♡　不管距離多遠，我們都還是我們。　♡　今天也要繼續想我。　♡　</span><span>想我的時候，就來這裡坐坐。　♡　不管距離多遠，我們都還是我們。　♡　今天也要繼續想我。　♡　</span>
+          <span>想我的時候，就來這裡坐坐。　💜　不管距離多遠，我們都還是我們。　💜　今天也要繼續想我。　💜　</span><span>想我的時候，就來這裡坐坐。　💜　不管距離多遠，我們都還是我們。　💜　今天也要繼續想我。　💜　</span>
         </div>
       </div>
       <div class="paper-card">
@@ -670,20 +670,20 @@
       <h2>想我的時候，點一下</h2>
       <p class="intro">這裡有一句我想親口對妳說的話。</p>
       <div class="paper-card">
-        <div class="reveal" id="secret">有些人不需要天天見面，也一直在彼此心裡。♡</div>
+        <div class="reveal" id="secret">一日不見，如隔三秋。💙</div>
       </div>
       <div class="actions"><button class="btn primary" id="secretBtn">送我一句悄悄話</button><button class="btn"
           onclick="window.scrollTo({top:0,behavior:'smooth'})">回到最上面 ↑</button></div>
-      <div class="next-step"><button class="btn primary" id="finishBtn">完成這趟小小旅程 ♡</button></div>
+      <div class="next-step"><button class="btn primary" id="finishBtn">完成這趟小小旅程💜</button></div>
     </section>
   </main>
-  <footer><strong>不管我在哪裡，妳都可以來這裡找我。♡</strong>這個小角落，永遠留一個位置給妳。<br><br>Made with love, just for you.</footer>
+  <footer><strong>不管我在哪裡，妳都可以來這裡找我。💜</strong>這個小角落，永遠留一個位置給妳。<br><br>Made with love, just for you.</footer>
   <script>
     const envelope = document.getElementById('envelope');
 
     function openLetter() {
       envelope.classList.add('open');
-      document.getElementById('hint').textContent = '信已經為妳打開了 ♡';
+      document.getElementById('hint').textContent = '信已經為妳打開了 💜';
     }
     envelope.addEventListener('click', openLetter);
     envelope.addEventListener('keydown', e => {
@@ -711,7 +711,7 @@
       button.addEventListener('click', () => revealSection(index + 1));
     });
     document.getElementById('finishBtn').addEventListener('click', () => {
-      document.getElementById('finishBtn').textContent = '這份心意會一直為妳留著 ♡';
+      document.getElementById('finishBtn').textContent = '這份心意會一直為妳留著💛';
       document.getElementById('finishBtn').disabled = true;
     });
     //const quotes = ['「妳已經很努力了，今天也值得被好好疼愛。」', '「不用每一天都很勇敢，偶爾休息也沒關係。」', '「希望妳記得，妳一直都是很棒、很值得被愛的人。」',
@@ -725,7 +725,7 @@
     //    el.style.opacity = 1;
     //  }, 220);
     //});
-    const secrets = ['想我的時候，傳訊息給我唄♡', '謝謝妳出現在我的生命裡❤️', '我們還有好多地方要一起去、好多餐廳要一起吃～',
+    const secrets = ['想我的時候，傳訊息給我唄🧡', '謝謝妳出現在我的生命裡❤️', '我們還有好多地方要一起去、好多餐廳要一起吃～',
       '距離只是地圖上的一段路，不是我們的距離。', '今天也要記得吃飯、想我、好好睡覺。', '乖乖等我回來哦！'
     ];
     document.getElementById('secretBtn').addEventListener('click', () => {
